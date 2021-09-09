@@ -3,6 +3,7 @@ import page.GooglePage;
 import page.SearchResultsPage;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
+import static com.codeborne.selenide.Condition.text;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -22,7 +23,7 @@ public class GoogleTest extends BaseTest {
 
         SearchResultsPage searchResultsPage = new SearchResultsPage();
         searchResultsPage.getResults().shouldHave(sizeGreaterThan(1));
-        assertEquals(searchResultsPage.getResult(0).getText(), "Selenide: concise UI tests in Java");
+        searchResultsPage.getResult(0).shouldHave(text( "Selenide: concise UI tests in Java"));
     }
 
     @Test

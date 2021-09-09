@@ -11,8 +11,6 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import java.util.Objects;
-
 /**
  * Project Name    : selenide-page-object-demo
  * Developer       : Osanda Deshan
@@ -40,48 +38,48 @@ public class DriverFactory {
         if (BROWSER == null) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
-        }
-
-        switch (Objects.requireNonNull(BROWSER).toLowerCase()) {
-            case HEADLESS_CHROME:
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--headless");
-                chromeOptions.addArguments("start-maximized");
-                chromeOptions.addArguments("disable-infobars");
-                chromeOptions.addArguments("--disable-extensions");
-                chromeOptions.addArguments("--disable-gpu");
-                chromeOptions.addArguments("--disable-dev-shm-usage");
-                chromeOptions.addArguments("--no-sandbox");
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver(chromeOptions);
-                break;
-            case FIREFOX:
-                WebDriverManager.firefoxdriver().setup();
-                driver = new FirefoxDriver();
-                break;
-            case HEADLESS_FIREFOX:
-                FirefoxBinary firefoxBinary = new FirefoxBinary();
-                firefoxBinary.addCommandLineOptions("--headless");
-                firefoxBinary.addCommandLineOptions(WINDOW_SIZE);
-                FirefoxOptions firefoxOptions = new FirefoxOptions();
-                firefoxOptions.setBinary(firefoxBinary);
-                WebDriverManager.firefoxdriver().setup();
-                driver = new FirefoxDriver(firefoxOptions);
-                break;
-            case IE:
-                WebDriverManager.iedriver().setup();
-                driver = new InternetExplorerDriver();
-                break;
-            case EDGE:
-                WebDriverManager.edgedriver().setup();
-                driver = new EdgeDriver();
-                break;
-            case SAFARI:
-                driver = new SafariDriver();
-                break;
-            default:
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
+        } else {
+            switch (BROWSER.toLowerCase()) {
+                case HEADLESS_CHROME:
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.addArguments("--headless");
+                    chromeOptions.addArguments("start-maximized");
+                    chromeOptions.addArguments("disable-infobars");
+                    chromeOptions.addArguments("--disable-extensions");
+                    chromeOptions.addArguments("--disable-gpu");
+                    chromeOptions.addArguments("--disable-dev-shm-usage");
+                    chromeOptions.addArguments("--no-sandbox");
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver(chromeOptions);
+                    break;
+                case FIREFOX:
+                    WebDriverManager.firefoxdriver().setup();
+                    driver = new FirefoxDriver();
+                    break;
+                case HEADLESS_FIREFOX:
+                    FirefoxBinary firefoxBinary = new FirefoxBinary();
+                    firefoxBinary.addCommandLineOptions("--headless");
+                    firefoxBinary.addCommandLineOptions(WINDOW_SIZE);
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    firefoxOptions.setBinary(firefoxBinary);
+                    WebDriverManager.firefoxdriver().setup();
+                    driver = new FirefoxDriver(firefoxOptions);
+                    break;
+                case IE:
+                    WebDriverManager.iedriver().setup();
+                    driver = new InternetExplorerDriver();
+                    break;
+                case EDGE:
+                    WebDriverManager.edgedriver().setup();
+                    driver = new EdgeDriver();
+                    break;
+                case SAFARI:
+                    driver = new SafariDriver();
+                    break;
+                default:
+                    WebDriverManager.chromedriver().setup();
+                    driver = new ChromeDriver();
+            }
         }
     }
 
